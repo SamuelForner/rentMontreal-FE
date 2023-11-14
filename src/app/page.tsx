@@ -1,4 +1,4 @@
-import Home from './pages/dashboard/Home';
+import Home from '@/pages/dashboard/home';
 
 export default function Page() {
   return (
