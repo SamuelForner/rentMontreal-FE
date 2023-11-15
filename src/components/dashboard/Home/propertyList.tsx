@@ -1,5 +1,8 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
+
+import { Property } from '@/interfaces/property';
 import {
   Button,
   Card,
@@ -116,8 +119,11 @@ export default function PropertyList() {
     },
   ];
 
-  const handleClick = () => {
-    console.log('clic!');
+  const router = useRouter();
+
+  const handleClick = (property: Property) => {
+    console.log('property', property);
+    // router.push('/property-page/property/');
   };
 
   return (
@@ -139,7 +145,9 @@ export default function PropertyList() {
                   alt='property Image'
                   borderRadius='lg'
                 />
-                <Button onClick={handleClick}>Voir ce bien</Button>
+                <Button onClick={() => handleClick(property)}>
+                  Voir ce bien
+                </Button>
               </HStack>
               <Stack mt='6'>
                 <Heading size='md'>{property.title}</Heading>
