@@ -18,6 +18,7 @@ import {
 export default function PropertyList() {
   const propertyList = [
     {
+      id: 1,
       title: 'Bel appartement',
       type: 'Appartement',
       rooms: 2,
@@ -34,6 +35,7 @@ export default function PropertyList() {
         'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
     },
     {
+      id: 2,
       title: 'moche maison',
       type: 'Maison',
       rooms: 3,
@@ -51,6 +53,7 @@ export default function PropertyList() {
     },
 
     {
+      id: 3,
       title: 'moche maison',
       type: 'Maison',
       rooms: 3,
@@ -68,6 +71,7 @@ export default function PropertyList() {
     },
 
     {
+      id: 4,
       title: 'moche maison',
       type: 'Maison',
       rooms: 3,
@@ -85,6 +89,7 @@ export default function PropertyList() {
     },
 
     {
+      id: 5,
       title: 'moche maison',
       type: 'Maison',
       rooms: 3,
@@ -102,6 +107,7 @@ export default function PropertyList() {
     },
 
     {
+      id: 6,
       title: 'moche maison',
       type: 'Maison',
       rooms: 3,
@@ -123,7 +129,7 @@ export default function PropertyList() {
 
   const handleClick = (property: Property) => {
     console.log('property', property);
-    // router.push('/property-page/property/');
+    router.push(`/property-page/${property.id}`);
   };
 
   return (

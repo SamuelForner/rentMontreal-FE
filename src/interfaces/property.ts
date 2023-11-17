@@ -1,4 +1,5 @@
 export interface Property {
+  id: number;
   title: string;
   type: string;
   rooms: number;
