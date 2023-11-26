@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 
-import { Property } from '@/interfaces/property';
+import { PropertyType } from '@/interfaces/property';
 import {
   Button,
   Card,
@@ -127,8 +127,7 @@ export default function PropertyList() {
 
   const router = useRouter();
 
-  const handleClick = (property: Property) => {
-    console.log('property', property);
+  const handleClick = (property: PropertyType) => {
     router.push(`/property-page/${property.id}`);
   };
 

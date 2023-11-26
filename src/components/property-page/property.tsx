@@ -1,10 +1,22 @@
-import { Property } from '@/interfaces/property';
-import { Box, Heading, HStack, Stack, Text, VStack } from '@chakra-ui/react';
+import { PropertyType } from '@/interfaces/property';
+import {
+  Box,
+  Heading,
+  HStack,
+  Image,
+  Stack,
+  Text,
+  VStack,
+} from '@chakra-ui/react';
 
-export default function Property() {
-  const propertyList = [
+interface PropertyDescriptionProps {
+  propertyId: string | string[] | undefined;
+}
+
+export default function Property({ propertyId }: PropertyDescriptionProps) {
+  const propertyList: PropertyType[] = [
     {
-      id: 1,
+      id: '1',
       title: 'Bel appartement',
       type: 'Appartement',
       rooms: 2,
@@ -21,7 +33,7 @@ export default function Property() {
         'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
     },
     {
-      id: 2,
+      id: '2',
       title: 'moche maison',
       type: 'Maison',
       rooms: 3,
@@ -39,7 +51,7 @@ export default function Property() {
     },
 
     {
-      id: 3,
+      id: '3',
       title: 'moche maison',
       type: 'Maison',
       rooms: 3,
@@ -57,7 +69,7 @@ export default function Property() {
     },
 
     {
-      id: 4,
+      id: '4',
       title: 'moche maison',
       type: 'Maison',
       rooms: 3,
@@ -75,7 +87,7 @@ export default function Property() {
     },
 
     {
-      id: 5,
+      id: '5',
       title: 'moche maison',
       type: 'Maison',
       rooms: 3,
@@ -93,7 +105,7 @@ export default function Property() {
     },
 
     {
-      id: 6,
+      id: '6',
       title: 'moche maison',
       type: 'Maison',
       rooms: 3,
@@ -110,21 +122,26 @@ export default function Property() {
         'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
     },
   ];
+
+  const property = propertyList.find((property) => property.id === propertyId);
+
   return (
     <Stack>
-      <Heading>propertyList.title</Heading>
+      <Heading>{property && property.title}</Heading>
       <HStack>
         <Box boxSize='md'>
-          {/* <Image alt='image' src={propertyList.picture} /> */}
+          <Image alt='image' src={property && property.picture} />
         </Box>
         <VStack>
-          <Text>Nombre de chambre : propertyList.rooms</Text>
-          <Text>Superficie en m2 : propertyList.surfaceArea</Text>
+          <Text>Nombre de chambre : {property && property.rooms}</Text>
+          <Text>Superficie en m2 : {property && property.surfaceArea}</Text>
           <Text>
-            propertyList.address.street propertyList.address.city{' '}
-            propertyList.address.postCode propertyList.address.country
+            {property && property.address.street}{' '}
+            {property && property.address.city}
+            {property && property.address.postCode}{' '}
+            {property && property.address.country}
           </Text>
-          <Text>propertyList.description</Text>
+          <Text>{property && property.description}</Text>
         </VStack>
       </HStack>
     </Stack>

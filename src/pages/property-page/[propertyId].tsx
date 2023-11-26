@@ -5,14 +5,13 @@ import Property from '@/components/property-page/property';
 
 export default function PropertyPage() {
   const router = useRouter();
-  console.log('router.QUER', router.query);
-  const { id } = router.query;
-  console.log(...id);
+
+  const { propertyId } = router.query;
 
   return (
     <>
       <Header />
-      <Property />
+      <Property propertyId={propertyId} />
     </>
   );
 }
