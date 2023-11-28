@@ -7,6 +7,8 @@ import {
   Button,
   Card,
   CardBody,
+  CardFooter,
+  Divider,
   Grid,
   Heading,
   HStack,
@@ -18,7 +20,7 @@ import {
 export default function PropertyList() {
   const propertyList = [
     {
-      id: 1,
+      id: '1',
       title: 'Bel appartement',
       type: 'Appartement',
       rooms: 2,
@@ -35,7 +37,7 @@ export default function PropertyList() {
         'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
     },
     {
-      id: 2,
+      id: '2',
       title: 'moche maison',
       type: 'Maison',
       rooms: 3,
@@ -53,7 +55,7 @@ export default function PropertyList() {
     },
 
     {
-      id: 3,
+      id: '3',
       title: 'moche maison',
       type: 'Maison',
       rooms: 3,
@@ -71,7 +73,7 @@ export default function PropertyList() {
     },
 
     {
-      id: 4,
+      id: '4',
       title: 'moche maison',
       type: 'Maison',
       rooms: 3,
@@ -89,7 +91,7 @@ export default function PropertyList() {
     },
 
     {
-      id: 5,
+      id: '5',
       title: 'moche maison',
       type: 'Maison',
       rooms: 3,
@@ -107,7 +109,7 @@ export default function PropertyList() {
     },
 
     {
-      id: 6,
+      id: '6',
       title: 'moche maison',
       type: 'Maison',
       rooms: 3,
@@ -141,19 +143,14 @@ export default function PropertyList() {
       </HStack>
       <Grid templateColumns='repeat(4, 1fr)' gap={3}>
         {propertyList.map((property, index) => (
-          <Card key={index} borderWidth='1px' borderColor='black'>
+          <Card key={index}>
             <CardBody>
-              <HStack>
-                <Image
-                  boxSize='28'
-                  src={property.picture}
-                  alt='property Image'
-                  borderRadius='lg'
-                />
-                <Button onClick={() => handleClick(property)}>
-                  Voir ce bien
-                </Button>
-              </HStack>
+              <Image
+                src={property.picture}
+                alt='property Image'
+                borderRadius='lg'
+              />
+
               <Stack mt='6'>
                 <Heading size='md'>{property.title}</Heading>
                 <Text>{property.type}</Text>
@@ -163,6 +160,16 @@ export default function PropertyList() {
                 <Text>{property.description}</Text>
               </Stack>
             </CardBody>
+            <Divider />
+            <CardFooter>
+              <Button
+                onClick={() => handleClick(property)}
+                borderWidth='1px'
+                borderColor='black'
+              >
+                Voir ce bien
+              </Button>
+            </CardFooter>
           </Card>
         ))}
       </Grid>

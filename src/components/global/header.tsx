@@ -1,6 +1,11 @@
+import { usePathname, useRouter } from 'next/navigation';
+
 import { Button, Heading, HStack, Stack } from '@chakra-ui/react';
 
 export function Header() {
+  const pathName = usePathname();
+  const router = useRouter();
+
   return (
     <HStack
       backgroundColor='blue.200'
@@ -10,9 +15,14 @@ export function Header() {
       borderColor='black'
       justifyContent='space-between'
     >
-      <Stack borderWidth='1px' borderColor='black'>
-        <Button>return</Button>
-      </Stack>
+      {pathName !== '/' ? (
+        <Stack borderWidth='1px' borderColor='black'>
+          <Button onClick={() => router.back()}>return</Button>
+        </Stack>
+      ) : (
+        <Stack></Stack>
+      )}
+
       <Stack borderWidth='1px' borderColor='black'>
         <Heading fontSize='3xl' color='white'>
           rentMontreal
