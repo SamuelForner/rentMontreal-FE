@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 
+import usePropertiesRessource from '@/hooks/ressources/use-properties';
 import { PropertyType } from '@/interfaces/property';
 import {
   Button,
@@ -126,6 +127,8 @@ export default function PropertyList() {
         'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
     },
   ];
+
+  const { properties } = usePropertiesRessource();
 
   const router = useRouter();
 
