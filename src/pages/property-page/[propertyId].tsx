@@ -7,6 +7,7 @@ export default function PropertyPage() {
   const router = useRouter();
 
   const { propertyId } = router.query;
+  console.log('propertyId', propertyId);
 
   return (
     <>

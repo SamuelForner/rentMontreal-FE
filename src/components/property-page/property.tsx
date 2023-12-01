@@ -1,3 +1,4 @@
+import usePropertyRessource from '@/hooks/ressources/use-property';
 import { PropertyType } from '@/interfaces/property';
 import {
   Box,
@@ -16,7 +17,7 @@ interface PropertyDescriptionProps {
 export default function Property({ propertyId }: PropertyDescriptionProps) {
   const propertyList: PropertyType[] = [
     {
-      id: '1',
+      _id: '1',
       title: 'Bel appartement',
       type: 'Appartement',
       rooms: 2,
@@ -33,7 +34,7 @@ export default function Property({ propertyId }: PropertyDescriptionProps) {
         'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80',
     },
     {
-      id: '2',
+      _id: '2',
       title: 'moche maison',
       type: 'Maison',
       rooms: 3,
@@ -51,7 +52,7 @@ export default function Property({ propertyId }: PropertyDescriptionProps) {
     },
 
     {
-      id: '3',
+      _id: '3',
       title: 'moche maison',
       type: 'Maison',
       rooms: 3,
@@ -69,7 +70,7 @@ export default function Property({ propertyId }: PropertyDescriptionProps) {
     },
 
     {
-      id: '4',
+      _id: '4',
       title: 'moche maison',
       type: 'Maison',
       rooms: 3,
@@ -87,7 +88,7 @@ export default function Property({ propertyId }: PropertyDescriptionProps) {
     },
 
     {
-      id: '5',
+      _id: '5',
       title: 'moche maison',
       type: 'Maison',
       rooms: 3,
@@ -105,7 +106,7 @@ export default function Property({ propertyId }: PropertyDescriptionProps) {
     },
 
     {
-      id: '6',
+      _id: '6',
       title: 'moche maison',
       type: 'Maison',
       rooms: 3,
@@ -123,7 +124,11 @@ export default function Property({ propertyId }: PropertyDescriptionProps) {
     },
   ];
 
-  const property = propertyList.find((property) => property.id === propertyId);
+  // const { propertyy } = usePropertyRessource(propertyId);
+  // console.log('property', propertyy);
+  // console.log('propertyId', propertyId);
+
+  const property = propertyList.find((property) => property._id === propertyId);
 
   return (
     <Stack>
