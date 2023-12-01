@@ -1,5 +1,5 @@
 export interface PropertyType {
-  _id: string;
+  _id: string | string[] | undefined;
   title: string;
   type: string;
   rooms: number;

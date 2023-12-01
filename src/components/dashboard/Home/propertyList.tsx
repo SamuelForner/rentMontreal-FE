@@ -24,7 +24,9 @@ export default function PropertyList() {
   const router = useRouter();
 
   const handleClick = (property: PropertyType) => {
-    router.push(`/property-page/${property._id}`);
+    if (property._id) {
+      router.push(`/property-page/${property._id}`);
+    }
   };
 
   return (
@@ -38,7 +40,16 @@ export default function PropertyList() {
       <Grid templateColumns='repeat(4, 1fr)' gap={3}>
         {properties &&
           properties.map((property, index) => (
-            <Card key={index}>
+            <Card
+              key={index}
+              boxShadow='md'
+              borderRadius='md'
+              border='1px'
+              backgroundColor='gray.100'
+              borderColor='gray.200'
+              transition='transform 0.3s'
+              _hover={{ transform: 'scale(1.03)', backgroundColor: 'gray.300' }}
+            >
               <CardBody>
                 <Image
                   src={property.picture}

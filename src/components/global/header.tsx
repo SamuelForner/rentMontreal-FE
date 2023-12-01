@@ -1,6 +1,7 @@
 import { usePathname, useRouter } from 'next/navigation';
+import { FaArrowLeft } from 'react-icons/fa';
 
-import { Button, Heading, HStack, Stack } from '@chakra-ui/react';
+import { Button, Heading, HStack, Stack, Text } from '@chakra-ui/react';
 
 export function Header() {
   const pathName = usePathname();
@@ -8,27 +9,46 @@ export function Header() {
 
   return (
     <HStack
-      backgroundColor='blue.200'
+      background='linear-gradient(90deg, #36D1DC 0%, #5B86E5 100%)'
       padding={4}
       align='center'
-      borderWidth='1px'
-      borderColor='black'
+      borderBottom='1px solid white'
       justifyContent='space-between'
+      boxShadow='0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+      position='relative'
     >
-      {pathName !== '/' ? (
-        <Stack borderWidth='1px' borderColor='black'>
-          <Button onClick={() => router.back()}>return</Button>
-        </Stack>
-      ) : (
-        <Stack></Stack>
-      )}
-
-      <Stack borderWidth='1px' borderColor='black'>
-        <Heading fontSize='3xl' color='white'>
-          rentMontreal
-        </Heading>
+      <Stack spacing={2} direction='row' align='center'>
+        {pathName !== '/' && (
+          <Button
+            colorScheme='whiteAlpha'
+            leftIcon={<FaArrowLeft />}
+            onClick={() => router.back()}
+          >
+            Retour
+          </Button>
+        )}
       </Stack>
-      <Stack borderWidth='1px' borderColor='black'></Stack>
+      <Stack>
+        <Heading
+          fontSize={['2xl', '3xl', '4xl']}
+          color='white'
+          fontFamily='Dancing Script'
+          letterSpacing='tight'
+          textAlign='center'
+        >
+          <span role='img' aria-label='maison'>
+            🏡
+          </span>{' '}
+          rentMontreal{' '}
+          <span role='img' aria-label='clés'>
+            🔑
+          </span>
+        </Heading>
+        <Text fontSize='sm' color='white' textAlign='center'>
+          Explorez une variété de propriétés à Montréal
+        </Text>
+      </Stack>
+      <Stack></Stack>
     </HStack>
   );
 }

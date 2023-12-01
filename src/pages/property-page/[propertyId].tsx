@@ -7,12 +7,15 @@ export default function PropertyPage() {
   const router = useRouter();
 
   const { propertyId } = router.query;
-  console.log('propertyId', propertyId);
 
-  return (
-    <>
-      <Header />
-      <Property propertyId={propertyId} />
-    </>
-  );
+  if (!propertyId) {
+    return <></>;
+  } else {
+    return (
+      <>
+        <Header />
+        <Property propertyId={propertyId} />
+      </>
+    );
+  }
 }

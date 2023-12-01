@@ -3,7 +3,7 @@ import React from 'react';
 import { PropertyType } from '@/interfaces/property';
 
 export default function usePropertyRessource(propertyId: PropertyType['_id']) {
-  const [propertyy, setProperty] = React.useState<PropertyType>();
+  const [property, setProperty] = React.useState<PropertyType>();
   React.useEffect(() => {
     const dataFetch = async () => {
       const data = await (
@@ -15,6 +15,6 @@ export default function usePropertyRessource(propertyId: PropertyType['_id']) {
   }, [propertyId]);
 
   return {
-    propertyy,
+    property,
   };
 }
