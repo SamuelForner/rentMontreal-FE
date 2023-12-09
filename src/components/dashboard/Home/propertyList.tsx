@@ -18,8 +18,12 @@ import {
   Text,
 } from '@chakra-ui/react';
 
-export default function PropertyList() {
-  const { properties } = usePropertiesRessource();
+interface PropertyListProps {
+  filter: { roomNumber: number | undefined };
+}
+
+export default function PropertyList(filter: PropertyListProps) {
+  const { properties } = usePropertiesRessource(filter);
 
   const router = useRouter();
 

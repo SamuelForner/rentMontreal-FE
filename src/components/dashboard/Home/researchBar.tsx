@@ -16,14 +16,19 @@ import {
   Stack,
 } from '@chakra-ui/react';
 
-export function ResearchBar() {
+interface ResearchBarProps {
+  onFilterChange: (filters: { roomNumber: number | undefined }) => void;
+}
+
+export function ResearchBar({ onFilterChange }: ResearchBarProps) {
   // liste de filtre : nombre de chambre/superficie/adresse : rue;ville;pays
   const [roomNumber, setRoomNumber] = React.useState<
     number | string | undefined
-  >(0);
+  >();
 
-  const handleRoomNumber = (value: number | string) => {
-    setRoomNumber(value);
+  const handleRoomNumber = (value: number | string | undefined) => {
+    setRoomNumber(value != '' ? Number(value) : '');
+    onFilterChange({ roomNumber: value != '' ? Number(value) : undefined });
   };
 
   return (

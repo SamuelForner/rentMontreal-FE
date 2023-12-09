@@ -2,17 +2,29 @@ import React from 'react';
 
 import { PropertyType } from '@/interfaces/property';
 
-export default function usePropertiesRessource() {
+interface usePropertiesRessourceProps {
+  filter?: { roomNumber: number | undefined };
+}
+
+export default function usePropertiesRessource(
+  filter: usePropertiesRessourceProps
+) {
   const [properties, setProperties] = React.useState<PropertyType[]>();
+
+  let queryParams = '';
+  if (filter.filter?.roomNumber !== undefined) {
+    queryParams = `?rooms=${filter.filter.roomNumber}`;
+  }
+
   React.useEffect(() => {
     const dataFetch = async () => {
       const data = await (
-        await fetch('http://localhost:3000/properties/all')
+        await fetch(`http://localhost:3000/properties/filter${queryParams}`)
       ).json();
       setProperties(data);
     };
     dataFetch();
-  }, []);
+  }, [queryParams]);
 
   return {
     properties,
