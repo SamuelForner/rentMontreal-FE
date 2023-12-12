@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { PropertyType } from '@/interfaces/property';
+import { PropertyInt } from '@/interfaces/property';
 
-export default function usePropertyRessource(propertyId: PropertyType['_id']) {
-  const [property, setProperty] = React.useState<PropertyType>();
+export default function usePropertyRessource(propertyId: PropertyInt['_id']) {
+  const [property, setProperty] = React.useState<PropertyInt>();
   React.useEffect(() => {
     const dataFetch = async () => {
       const data = await (

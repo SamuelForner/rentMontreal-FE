@@ -1,7 +1,12 @@
-export interface PropertyType {
+export enum PropertyType {
+  Apartment = 'Apartment',
+  House = 'House',
+}
+
+export interface PropertyInt {
   _id: string | string[] | undefined;
   title: string;
-  type: string;
+  type: PropertyType;
   rooms: number;
   surfaceArea: string;
   address: {

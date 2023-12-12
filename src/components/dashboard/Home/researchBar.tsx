@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { PropertyType } from '@/interfaces/property';
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import {
   Button,
@@ -7,6 +8,7 @@ import {
   Input,
   Menu,
   MenuButton,
+  MenuItem,
   MenuList,
   NumberDecrementStepper,
   NumberIncrementStepper,
@@ -26,9 +28,19 @@ export function ResearchBar({ onFilterChange }: ResearchBarProps) {
     number | string | undefined
   >();
 
+  const [propertyType, setPropertyType] = React.useState<
+    PropertyType | PropertyType[] | undefined
+  >();
+
   const handleRoomNumber = (value: number | string | undefined) => {
     setRoomNumber(value != '' ? Number(value) : '');
     onFilterChange({ roomNumber: value != '' ? Number(value) : undefined });
+  };
+
+  const handlePropertyType = (
+    value: PropertyType | PropertyType[] | undefined
+  ) => {
+    setPropertyType(value);
   };
 
   return (
@@ -60,6 +72,36 @@ export function ResearchBar({ onFilterChange }: ResearchBarProps) {
                   <NumberDecrementStepper />
                 </NumberInputStepper>
               </NumberInput>
+            </MenuList>
+          </Menu>
+        </Stack>
+        <Stack>
+          <Menu>
+            <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+              {propertyType === PropertyType.Apartment
+                ? 'Appartement'
+                : propertyType === PropertyType.House
+                ? 'Maison'
+                : 'Type de bien'}
+            </MenuButton>
+            <MenuList>
+              <MenuItem
+                onClick={() => handlePropertyType(PropertyType.Apartment)}
+              >
+                Appartement
+              </MenuItem>
+              <MenuItem
+                value={PropertyType.House}
+                onClick={() => handlePropertyType(PropertyType.House)}
+              >
+                Maison
+              </MenuItem>
+              <MenuItem
+                value={PropertyType.House}
+                onClick={() => handlePropertyType(undefined)}
+              >
+                Retirer le filtre
+              </MenuItem>
             </MenuList>
           </Menu>
         </Stack>

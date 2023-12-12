@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { PropertyType } from '@/interfaces/property';
+import { PropertyInt } from '@/interfaces/property';
 
 interface usePropertiesRessourceProps {
   filter?: { roomNumber: number | undefined };
@@ -9,7 +9,7 @@ interface usePropertiesRessourceProps {
 export default function usePropertiesRessource(
   filter: usePropertiesRessourceProps
 ) {
-  const [properties, setProperties] = React.useState<PropertyType[]>();
+  const [properties, setProperties] = React.useState<PropertyInt[]>();
 
   let queryParams = '';
   if (filter.filter?.roomNumber !== undefined) {

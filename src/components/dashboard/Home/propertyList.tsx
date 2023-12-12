@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 
 import usePropertiesRessource from '@/hooks/ressources/use-properties';
-import { PropertyType } from '@/interfaces/property';
+import { PropertyInt } from '@/interfaces/property';
 import {
   Button,
   Card,
@@ -27,7 +27,7 @@ export default function PropertyList(filter: PropertyListProps) {
 
   const router = useRouter();
 
-  const handleClick = (property: PropertyType) => {
+  const handleClick = (property: PropertyInt) => {
     if (property._id) {
       router.push(`/property-page/${property._id}`);
     }
