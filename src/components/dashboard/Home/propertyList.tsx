@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 
 import usePropertiesRessource from '@/hooks/ressources/use-properties';
-import { PropertyInt } from '@/interfaces/property';
+import { PropertyInt, PropertyType } from '@/interfaces/property';
 import {
   Button,
   Card,
@@ -19,11 +19,14 @@ import {
 } from '@chakra-ui/react';
 
 interface PropertyListProps {
-  filter: { roomNumber: number | undefined };
+  filters: {
+    roomNumber?: number | undefined;
+    propertyType?: PropertyType | PropertyType[] | undefined;
+  };
 }
 
-export default function PropertyList(filter: PropertyListProps) {
-  const { properties } = usePropertiesRessource(filter);
+export default function PropertyList(filters: PropertyListProps) {
+  const { properties } = usePropertiesRessource(filters);
 
   const router = useRouter();
 

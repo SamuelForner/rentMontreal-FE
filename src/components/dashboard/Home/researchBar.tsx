@@ -19,10 +19,15 @@ import {
 } from '@chakra-ui/react';
 
 interface ResearchBarProps {
-  onFilterChange: (filters: { roomNumber: number | undefined }) => void;
+  onFiltersChange: (filters: {
+    roomNumber?: number | undefined;
+    propertyType?: PropertyType | PropertyType[] | undefined;
+  }) => void;
 }
 
-export function ResearchBar({ onFilterChange }: ResearchBarProps) {
+export function ResearchBar({
+  onFiltersChange: onFilterChange,
+}: ResearchBarProps) {
   // liste de filtre : nombre de chambre/superficie/adresse : rue;ville;pays
   const [roomNumber, setRoomNumber] = React.useState<
     number | string | undefined
@@ -41,6 +46,7 @@ export function ResearchBar({ onFilterChange }: ResearchBarProps) {
     value: PropertyType | PropertyType[] | undefined
   ) => {
     setPropertyType(value);
+    onFilterChange({ propertyType: value ? value : undefined });
   };
 
   return (

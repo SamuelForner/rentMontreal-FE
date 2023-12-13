@@ -5,23 +5,26 @@ import React from 'react';
 import PropertyList from '@/components/dashboard/Home/propertyList';
 import { ResearchBar } from '@/components/dashboard/Home/researchBar';
 import { Header } from '@/components/global/header';
+import { PropertyType } from '@/interfaces/property';
 
 export default function Home() {
-  const [filter, setFilter] = React.useState<{
-    roomNumber: number | undefined;
-  }>({ roomNumber: undefined });
+  const [filters, setFilters] = React.useState<{
+    roomNumber?: number | undefined;
+    propertyType?: PropertyType | PropertyType[] | undefined;
+  }>({ roomNumber: undefined, propertyType: undefined });
 
-  const handleFilterChange = (newFilter: {
-    roomNumber: number | undefined;
+  const handleFiltersChange = (newFilter: {
+    roomNumber?: number | undefined;
+    propertyType?: PropertyType | PropertyType[] | undefined;
   }) => {
-    setFilter(newFilter);
+    setFilters((prevFilter) => ({ ...prevFilter, ...newFilter }));
   };
 
   return (
     <>
       <Header />
-      <ResearchBar onFilterChange={handleFilterChange} />
-      <PropertyList filter={filter} />
+      <ResearchBar onFiltersChange={handleFiltersChange} />
+      <PropertyList filters={filters} />
     </>
   );
 }

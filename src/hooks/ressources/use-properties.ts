@@ -1,9 +1,14 @@
+import qs from 'qs';
+import querystring from 'querystring';
 import React from 'react';
 
-import { PropertyInt } from '@/interfaces/property';
+import { PropertyInt, PropertyType } from '@/interfaces/property';
 
 interface usePropertiesRessourceProps {
-  filter?: { roomNumber: number | undefined };
+  filters: {
+    roomNumber?: number | undefined;
+    propertyType?: PropertyType | PropertyType[] | undefined;
+  };
 }
 
 export default function usePropertiesRessource(
@@ -11,20 +16,28 @@ export default function usePropertiesRessource(
 ) {
   const [properties, setProperties] = React.useState<PropertyInt[]>();
 
-  let queryParams = '';
-  if (filter.filter?.roomNumber !== undefined) {
-    queryParams = `?rooms=${filter.filter.roomNumber}`;
-  }
+  const queryParams = {
+    ...(filter.filters.roomNumber && { rooms: `${filter.filters.roomNumber}` }),
+    ...(filter.filters.propertyType && {
+      type: `${filter.filters.propertyType}`,
+    }),
+  };
+
+  let formattedQueryParams = qs.stringify(queryParams, {
+    addQueryPrefix: true,
+  });
 
   React.useEffect(() => {
     const dataFetch = async () => {
       const data = await (
-        await fetch(`http://localhost:3000/properties/filter${queryParams}`)
+        await fetch(
+          `http://localhost:3000/properties/filter${formattedQueryParams}`
+        )
       ).json();
       setProperties(data);
     };
     dataFetch();
-  }, [queryParams]);
+  }, [formattedQueryParams]);
 
   return {
     properties,
