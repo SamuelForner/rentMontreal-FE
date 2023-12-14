@@ -63,12 +63,12 @@ export default function PropertyList(filters: PropertyListProps) {
                   alt='property Image'
                   borderRadius='lg'
                 />
-
                 <Stack mt='6'>
                   <Heading size='md'>{property.title}</Heading>
                   <Text>{property.type}</Text>
                   <Text>{`${property.rooms} pièces`}</Text>
                   <Text>{`Surface : ${property.surfaceArea}`}</Text>
+                  <Text>Meublé : {property.isFurnished ? 'Oui' : 'Non'}</Text>
                   <Text>{`${property.address?.street ?? 'Non renseigné'}, ${
                     property.address?.city ?? 'non renseigné'
                   }, ${property.address?.country ?? 'non renseigné'} `}</Text>

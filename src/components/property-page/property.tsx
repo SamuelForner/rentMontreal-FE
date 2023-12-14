@@ -26,6 +26,7 @@ export default function Property({ propertyId }: PropertyDescriptionProps) {
         <VStack>
           <Text>Nombre de chambre : {property?.rooms}</Text>
           <Text>Superficie en m2 : {property?.surfaceArea}</Text>
+          <Text>Meublé : {property?.isFurnished ? 'oui' : 'non'}</Text>
           <Text>
             {property?.address.street} {property?.address.city}
             {property?.address.postCode} {property?.address.country}

@@ -8,7 +8,8 @@ export interface PropertyInt {
   title: string;
   type: PropertyType;
   rooms: number;
-  surfaceArea: string;
+  surfaceArea: number;
+  isFurnished: boolean;
   address: {
     street: string;
     city: string;

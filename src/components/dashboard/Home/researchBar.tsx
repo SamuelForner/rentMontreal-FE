@@ -16,6 +16,7 @@ import {
   NumberInputField,
   NumberInputStepper,
   Stack,
+  VStack,
 } from '@chakra-ui/react';
 
 interface ResearchBarProps {
@@ -36,6 +37,14 @@ export function ResearchBar({
   const [propertyType, setPropertyType] = React.useState<
     PropertyType | PropertyType[] | undefined
   >();
+
+  const [surfaceArea, setSurfaceArea] = React.useState<{
+    surfaceAreaMin: string;
+    surfaceAreaMax: string;
+  }>({
+    surfaceAreaMin: '',
+    surfaceAreaMax: '',
+  });
 
   const handleRoomNumber = (value: number | string | undefined) => {
     setRoomNumber(value != '' ? Number(value) : '');
@@ -109,6 +118,28 @@ export function ResearchBar({
                 Retirer le filtre
               </MenuItem>
             </MenuList>
+          </Menu>
+        </Stack>
+        <Stack>
+          <Menu closeOnSelect={false} autoSelect={false}>
+            <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+              Superficie
+            </MenuButton>
+            <MenuList>
+              <VStack>
+                <Input placeholder='Superficie min' />
+                <Input placeholder='Superficie max' />
+                <Button />
+                <Button />
+              </VStack>
+            </MenuList>
+          </Menu>
+        </Stack>
+        <Stack>
+          <Menu>
+            <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+              Meublé
+            </MenuButton>
           </Menu>
         </Stack>
       </HStack>
