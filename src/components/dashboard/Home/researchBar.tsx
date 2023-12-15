@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 
 import { PropertyType } from '@/interfaces/property';
 import { ChevronDownIcon } from '@chakra-ui/icons';
@@ -39,12 +39,14 @@ export function ResearchBar({
   >();
 
   const [surfaceArea, setSurfaceArea] = React.useState<{
-    surfaceAreaMin: string;
-    surfaceAreaMax: string;
+    surfaceAreaMin?: string;
+    surfaceAreaMax?: string;
   }>({
     surfaceAreaMin: '',
     surfaceAreaMax: '',
   });
+
+  console.log(surfaceArea);
 
   const handleRoomNumber = (value: number | string | undefined) => {
     setRoomNumber(value != '' ? Number(value) : '');
@@ -56,6 +58,18 @@ export function ResearchBar({
   ) => {
     setPropertyType(value);
     onFilterChange({ propertyType: value ? value : undefined });
+  };
+
+  const onSurfaceAreaChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setSurfaceArea((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const handleSurfaceAreaChange = () => {
+    console.log('hey');
   };
 
   return (
@@ -126,12 +140,35 @@ export function ResearchBar({
               Superficie
             </MenuButton>
             <MenuList>
-              <VStack>
-                <Input placeholder='Superficie min' />
-                <Input placeholder='Superficie max' />
-                <Button />
-                <Button />
-              </VStack>
+              <Stack>
+                <VStack>
+                  <Input
+                    type='number'
+                    placeholder='Superficie min'
+                    name='surfaceAreaMin'
+                    onChange={onSurfaceAreaChange}
+                    value={surfaceArea.surfaceAreaMin}
+                  />
+                  <Input
+                    type='number'
+                    placeholder='Superficie max'
+                    name='surfaceAreaMax'
+                    onChange={onSurfaceAreaChange}
+                    value={surfaceArea.surfaceAreaMax}
+                  />
+                </VStack>
+                <HStack spacing={2}>
+                  <Button colorScheme='blue'>Valider</Button>
+                  <Button
+                    onClick={() =>
+                      setSurfaceArea({ surfaceAreaMin: '', surfaceAreaMax: '' })
+                    }
+                    colorScheme='pink'
+                  >
+                    Supprimer le filtre
+                  </Button>
+                </HStack>
+              </Stack>
             </MenuList>
           </Menu>
         </Stack>
