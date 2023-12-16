@@ -23,6 +23,8 @@ interface ResearchBarProps {
   onFiltersChange: (filters: {
     roomNumber?: number | undefined;
     propertyType?: PropertyType | PropertyType[] | undefined;
+    surfaceAreaMin?: number | undefined;
+    surfaceAreaMax?: number | undefined;
   }) => void;
 }
 
@@ -46,8 +48,6 @@ export function ResearchBar({
     surfaceAreaMax: '',
   });
 
-  console.log(surfaceArea);
-
   const handleRoomNumber = (value: number | string | undefined) => {
     setRoomNumber(value != '' ? Number(value) : '');
     onFilterChange({ roomNumber: value != '' ? Number(value) : undefined });
@@ -69,7 +69,10 @@ export function ResearchBar({
   };
 
   const handleSurfaceAreaChange = () => {
-    console.log('hey');
+    onFilterChange({
+      surfaceAreaMin: Number(surfaceArea.surfaceAreaMin),
+      surfaceAreaMax: Number(surfaceArea.surfaceAreaMax),
+    });
   };
 
   return (
@@ -80,6 +83,7 @@ export function ResearchBar({
         borderWidth='1px'
         borderColor='gray.300'
         padding={2}
+        name='recherche'
       />
       <HStack>
         <Stack>
@@ -94,6 +98,7 @@ export function ResearchBar({
                 size='xs'
                 value={roomNumber}
                 onChange={handleRoomNumber}
+                name='numberInput'
               >
                 <NumberInputField />
                 <NumberInputStepper>
@@ -158,7 +163,9 @@ export function ResearchBar({
                   />
                 </VStack>
                 <HStack spacing={2}>
-                  <Button colorScheme='blue'>Valider</Button>
+                  <Button colorScheme='blue' onClick={handleSurfaceAreaChange}>
+                    Valider
+                  </Button>
                   <Button
                     onClick={() =>
                       setSurfaceArea({ surfaceAreaMin: '', surfaceAreaMax: '' })

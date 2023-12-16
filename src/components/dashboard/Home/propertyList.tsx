@@ -22,6 +22,8 @@ interface PropertyListProps {
   filters: {
     roomNumber?: number | undefined;
     propertyType?: PropertyType | PropertyType[] | undefined;
+    surfaceAreaMin?: number | undefined;
+    surfaceAreaMax?: number | undefined;
   };
 }
 
@@ -31,6 +33,7 @@ export default function PropertyList(filters: PropertyListProps) {
   const router = useRouter();
 
   const handleClick = (property: PropertyInt) => {
+    console.log(property);
     if (property._id) {
       router.push(`/property-page/${property._id}`);
     }

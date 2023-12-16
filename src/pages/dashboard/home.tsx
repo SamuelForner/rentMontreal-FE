@@ -11,11 +11,20 @@ export default function Home() {
   const [filters, setFilters] = React.useState<{
     roomNumber?: number | undefined;
     propertyType?: PropertyType | PropertyType[] | undefined;
-  }>({ roomNumber: undefined, propertyType: undefined });
+    surfaceAreaMin?: number | undefined;
+    surfaceAreaMax?: number | undefined;
+  }>({
+    roomNumber: undefined,
+    propertyType: undefined,
+    surfaceAreaMax: undefined,
+    surfaceAreaMin: undefined,
+  });
 
   const handleFiltersChange = (newFilter: {
     roomNumber?: number | undefined;
     propertyType?: PropertyType | PropertyType[] | undefined;
+    surfaceAreaMin?: number | undefined;
+    surfaceAreaMax?: number | undefined;
   }) => {
     setFilters((prevFilter) => ({ ...prevFilter, ...newFilter }));
   };

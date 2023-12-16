@@ -7,7 +7,7 @@ export default function usePropertyRessource(propertyId: PropertyInt['_id']) {
   React.useEffect(() => {
     const dataFetch = async () => {
       const data = await (
-        await fetch(`http://localhost:3000/properties/${propertyId}`)
+        await fetch(`http://localhost:3001/properties/${propertyId}`)
       ).json();
       setProperty(data);
     };

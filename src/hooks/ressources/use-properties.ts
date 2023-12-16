@@ -8,6 +8,8 @@ interface usePropertiesRessourceProps {
   filters: {
     roomNumber?: number | undefined;
     propertyType?: PropertyType | PropertyType[] | undefined;
+    surfaceAreaMin?: number | undefined;
+    surfaceAreaMax?: number | undefined;
   };
 }
 
@@ -21,6 +23,12 @@ export default function usePropertiesRessource(
     ...(filter.filters.propertyType && {
       type: `${filter.filters.propertyType}`,
     }),
+    ...(filter.filters.surfaceAreaMin && {
+      surfaceAreaMin: filter.filters.surfaceAreaMin,
+    }),
+    ...(filter.filters.surfaceAreaMax && {
+      surfaceAreaMax: filter.filters.surfaceAreaMax,
+    }),
   };
 
   let formattedQueryParams = qs.stringify(queryParams, {
@@ -31,7 +39,7 @@ export default function usePropertiesRessource(
     const dataFetch = async () => {
       const data = await (
         await fetch(
-          `http://localhost:3000/properties/filter${formattedQueryParams}`
+          `http://localhost:3001/properties/filter${formattedQueryParams}`
         )
       ).json();
       setProperties(data);
