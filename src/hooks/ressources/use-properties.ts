@@ -10,6 +10,7 @@ interface usePropertiesRessourceProps {
     propertyType?: PropertyType | PropertyType[] | undefined;
     surfaceAreaMin?: number | undefined;
     surfaceAreaMax?: number | undefined;
+    isFurnished?: boolean | undefined;
   };
 }
 
@@ -28,6 +29,9 @@ export default function usePropertiesRessource(
     }),
     ...(filter.filters.surfaceAreaMax && {
       surfaceAreaMax: filter.filters.surfaceAreaMax,
+    }),
+    ...(filter.filters.isFurnished && {
+      isFurnished: filter.filters.isFurnished,
     }),
   };
 

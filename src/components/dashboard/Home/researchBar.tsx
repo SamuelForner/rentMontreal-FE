@@ -25,13 +25,13 @@ interface ResearchBarProps {
     propertyType?: PropertyType | PropertyType[] | undefined;
     surfaceAreaMin?: number | undefined;
     surfaceAreaMax?: number | undefined;
+    isFurnished?: boolean | undefined;
   }) => void;
 }
 
 export function ResearchBar({
   onFiltersChange: onFilterChange,
 }: ResearchBarProps) {
-  // liste de filtre : nombre de chambre/superficie/adresse : rue;ville;pays
   const [roomNumber, setRoomNumber] = React.useState<
     number | string | undefined
   >();
@@ -47,6 +47,10 @@ export function ResearchBar({
     surfaceAreaMin: '',
     surfaceAreaMax: '',
   });
+
+  const [isFurnished, setIsFurnished] = React.useState<boolean | undefined>(
+    undefined
+  );
 
   const handleRoomNumber = (value: number | string | undefined) => {
     setRoomNumber(value != '' ? Number(value) : '');
@@ -83,6 +87,11 @@ export function ResearchBar({
     });
   };
 
+  const handleIsFurnished = (value: boolean | undefined) => {
+    setIsFurnished(value);
+    onFilterChange({ isFurnished: value });
+  };
+
   return (
     <Stack spacing={4} padding={4}>
       <Input
@@ -94,29 +103,6 @@ export function ResearchBar({
         name='recherche'
       />
       <HStack>
-        <Stack>
-          <Menu closeOnSelect={false} autoSelect={false}>
-            <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-              {roomNumber
-                ? `Nombre de chambre : ${roomNumber}`
-                : 'Nombre de chambre'}
-            </MenuButton>
-            <MenuList>
-              <NumberInput
-                size='xs'
-                value={roomNumber}
-                onChange={handleRoomNumber}
-                name='numberInput'
-              >
-                <NumberInputField />
-                <NumberInputStepper>
-                  <NumberIncrementStepper />
-                  <NumberDecrementStepper />
-                </NumberInputStepper>
-              </NumberInput>
-            </MenuList>
-          </Menu>
-        </Stack>
         <Stack>
           <Menu>
             <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
@@ -144,6 +130,29 @@ export function ResearchBar({
               >
                 Retirer le filtre
               </MenuItem>
+            </MenuList>
+          </Menu>
+        </Stack>
+        <Stack>
+          <Menu closeOnSelect={false} autoSelect={false}>
+            <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+              {roomNumber
+                ? `Nombre de chambre : ${roomNumber}`
+                : 'Nombre de chambre'}
+            </MenuButton>
+            <MenuList>
+              <NumberInput
+                size='xs'
+                value={roomNumber}
+                onChange={handleRoomNumber}
+                name='numberInput'
+              >
+                <NumberInputField />
+                <NumberInputStepper>
+                  <NumberIncrementStepper />
+                  <NumberDecrementStepper />
+                </NumberInputStepper>
+              </NumberInput>
             </MenuList>
           </Menu>
         </Stack>
@@ -185,8 +194,21 @@ export function ResearchBar({
         <Stack>
           <Menu>
             <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-              Meublé
+              {isFurnished === undefined && 'meublé/non meublé'}
+              {isFurnished && 'Meublé'}
+              {!isFurnished && 'Non meublé'}
             </MenuButton>
+            <MenuList>
+              <MenuItem onClick={() => handleIsFurnished(true)}>
+                Meublé
+              </MenuItem>
+              <MenuItem onClick={() => handleIsFurnished(false)}>
+                Non meublé
+              </MenuItem>
+              <MenuItem bg='pink' onClick={() => handleIsFurnished(undefined)}>
+                Supprimer le filtre
+              </MenuItem>
+            </MenuList>
           </Menu>
         </Stack>
       </HStack>

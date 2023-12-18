@@ -13,11 +13,13 @@ export default function Home() {
     propertyType?: PropertyType | PropertyType[] | undefined;
     surfaceAreaMin?: number | undefined;
     surfaceAreaMax?: number | undefined;
+    isFurnished?: boolean | undefined;
   }>({
     roomNumber: undefined,
     propertyType: undefined,
     surfaceAreaMax: undefined,
     surfaceAreaMin: undefined,
+    isFurnished: undefined,
   });
 
   const handleFiltersChange = (newFilter: {
@@ -25,6 +27,7 @@ export default function Home() {
     propertyType?: PropertyType | PropertyType[] | undefined;
     surfaceAreaMin?: number | undefined;
     surfaceAreaMax?: number | undefined;
+    isFurnished?: boolean | undefined;
   }) => {
     setFilters((prevFilter) => ({ ...prevFilter, ...newFilter }));
   };
