@@ -75,6 +75,14 @@ export function ResearchBar({
     });
   };
 
+  const handleDeleteSurfaceArea = () => {
+    setSurfaceArea({ surfaceAreaMin: '', surfaceAreaMax: '' });
+    onFilterChange({
+      surfaceAreaMin: undefined,
+      surfaceAreaMax: undefined,
+    });
+  };
+
   return (
     <Stack spacing={4} padding={4}>
       <Input
@@ -166,12 +174,7 @@ export function ResearchBar({
                   <Button colorScheme='blue' onClick={handleSurfaceAreaChange}>
                     Valider
                   </Button>
-                  <Button
-                    onClick={() =>
-                      setSurfaceArea({ surfaceAreaMin: '', surfaceAreaMax: '' })
-                    }
-                    colorScheme='pink'
-                  >
+                  <Button onClick={handleDeleteSurfaceArea} colorScheme='pink'>
                     Supprimer le filtre
                   </Button>
                 </HStack>

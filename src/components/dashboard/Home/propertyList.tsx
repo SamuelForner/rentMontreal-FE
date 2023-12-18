@@ -33,7 +33,6 @@ export default function PropertyList(filters: PropertyListProps) {
   const router = useRouter();
 
   const handleClick = (property: PropertyInt) => {
-    console.log(property);
     if (property._id) {
       router.push(`/property-page/${property._id}`);
     }
