@@ -196,7 +196,7 @@ export function ResearchBar({
             <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
               {isFurnished === undefined && 'meublé/non meublé'}
               {isFurnished && 'Meublé'}
-              {!isFurnished && 'Non meublé'}
+              {isFurnished === false && 'Non meublé'}
             </MenuButton>
             <MenuList>
               <MenuItem onClick={() => handleIsFurnished(true)}>
