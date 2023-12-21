@@ -1,9 +1,8 @@
 'use client';
-
-import { useRouter } from 'next/navigation';
+import NextLink from 'next/link';
 
 import usePropertiesRessource from '@/hooks/ressources/use-properties';
-import { PropertyInt, PropertyType } from '@/interfaces/property';
+import { PropertyType } from '@/interfaces/property';
 import {
   Button,
   Card,
@@ -14,6 +13,7 @@ import {
   Heading,
   HStack,
   Image,
+  Link,
   Stack,
   Text,
 } from '@chakra-ui/react';
@@ -31,13 +31,13 @@ interface PropertyListProps {
 export default function PropertyList(filters: PropertyListProps) {
   const { properties } = usePropertiesRessource(filters);
 
-  const router = useRouter();
+  // const router = useRouter();
 
-  const handleClick = (property: PropertyInt) => {
-    if (property._id) {
-      router.push(`/property-page/${property._id}`);
-    }
-  };
+  // const handleClick = (property: PropertyInt) => {
+  //   if (property._id) {
+  //     router.push(`/property-page/${property._id}`);
+  //   }
+  // };
 
   return (
     <Stack spacing={6} p={4}>
@@ -79,12 +79,17 @@ export default function PropertyList(filters: PropertyListProps) {
               </CardBody>
               <Divider />
               <CardFooter>
-                <Button
+                {/* <Button
                   onClick={() => handleClick(property)}
                   borderWidth='1px'
                   borderColor='black'
                 >
                   Voir ce bien
+                </Button> */}
+                <Button>
+                  <Link href={`/property-page/${property._id}`} as={NextLink}>
+                    voir ce bien
+                  </Link>
                 </Button>
               </CardFooter>
             </Card>

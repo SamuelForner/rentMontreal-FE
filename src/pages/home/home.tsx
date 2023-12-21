@@ -2,9 +2,9 @@
 
 import React from 'react';
 
-import PropertyList from '@/components/dashboard/Home/propertyList';
-import { ResearchBar } from '@/components/dashboard/Home/researchBar';
-import { Header } from '@/components/global/header';
+import Header from '@/components/global/header';
+import PropertyList from '@/components/home/propertyList';
+import { ResearchBar } from '@/components/home/researchBar';
 import { PropertyType } from '@/interfaces/property';
 
 export default function Home() {

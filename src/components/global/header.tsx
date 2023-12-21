@@ -3,7 +3,7 @@ import { FaArrowLeft } from 'react-icons/fa';
 
 import { Button, Heading, HStack, Stack, Text } from '@chakra-ui/react';
 
-export function Header() {
+export default function Header() {
   const pathName = usePathname();
   const router = useRouter();
 
