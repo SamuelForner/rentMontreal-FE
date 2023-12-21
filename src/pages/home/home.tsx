@@ -3,8 +3,8 @@
 import React from 'react';
 
 import Header from '@/components/global/header';
+import HomePageFilters from '@/components/home/homePageFilters';
 import PropertyList from '@/components/home/propertyList';
-import { ResearchBar } from '@/components/home/researchBar';
 import { PropertyType } from '@/interfaces/property';
 
 export default function Home() {
@@ -14,12 +14,16 @@ export default function Home() {
     surfaceAreaMin?: number | undefined;
     surfaceAreaMax?: number | undefined;
     isFurnished?: boolean | undefined;
+    floorMin?: number | undefined;
+    floorMax?: number | undefined;
   }>({
     roomNumber: undefined,
     propertyType: undefined,
     surfaceAreaMax: undefined,
     surfaceAreaMin: undefined,
     isFurnished: undefined,
+    floorMin: undefined,
+    floorMax: undefined,
   });
 
   const handleFiltersChange = (newFilter: {
@@ -28,6 +32,8 @@ export default function Home() {
     surfaceAreaMin?: number | undefined;
     surfaceAreaMax?: number | undefined;
     isFurnished?: boolean | undefined;
+    floorMin?: number | undefined;
+    floorMax?: number | undefined;
   }) => {
     setFilters((prevFilter) => ({ ...prevFilter, ...newFilter }));
   };
@@ -35,7 +41,7 @@ export default function Home() {
   return (
     <>
       <Header />
-      <ResearchBar onFiltersChange={handleFiltersChange} />
+      <HomePageFilters onFiltersChange={handleFiltersChange} />
       <PropertyList filters={filters} />
     </>
   );

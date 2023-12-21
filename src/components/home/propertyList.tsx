@@ -25,6 +25,8 @@ interface PropertyListProps {
     surfaceAreaMin?: number | undefined;
     surfaceAreaMax?: number | undefined;
     isFurnished?: boolean | undefined;
+    floorMin?: number | undefined;
+    floorMax?: number | undefined;
   };
 }
 
