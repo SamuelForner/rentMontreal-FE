@@ -2,36 +2,41 @@ import qs from 'qs';
 import querystring from 'querystring';
 import React from 'react';
 
-import { PropertyInt, PropertyType } from '@/interfaces/property';
+import { PropertyInt } from '@/interfaces/property';
+import { Filters } from '@/pages/home/home';
 
-interface usePropertiesRessourceProps {
-  filters: {
-    roomNumber?: number | undefined;
-    propertyType?: PropertyType | PropertyType[] | undefined;
-    surfaceAreaMin?: number | undefined;
-    surfaceAreaMax?: number | undefined;
-    isFurnished?: boolean | undefined;
-  };
-}
-
-export default function usePropertiesRessource(
-  filter: usePropertiesRessourceProps
-) {
+export default function usePropertiesRessource(filters: Filters) {
   const [properties, setProperties] = React.useState<PropertyInt[]>();
-
   const queryParams = {
-    ...(filter.filters.roomNumber && { rooms: `${filter.filters.roomNumber}` }),
-    ...(filter.filters.propertyType && {
-      type: `${filter.filters.propertyType}`,
+    ...(filters.livingArea && { livingArea: filters.livingArea }),
+    ...(filters.propertyType && {
+      type: filters.propertyType,
     }),
-    ...(filter.filters.surfaceAreaMin && {
-      surfaceAreaMin: filter.filters.surfaceAreaMin,
+    ...(filters.surfaceAreaMin && {
+      surfaceAreaMin: filters.surfaceAreaMin,
     }),
-    ...(filter.filters.surfaceAreaMax && {
-      surfaceAreaMax: filter.filters.surfaceAreaMax,
+    ...(filters.surfaceAreaMax && {
+      surfaceAreaMax: filters.surfaceAreaMax,
     }),
-    ...(filter.filters.isFurnished && {
-      isFurnished: filter.filters.isFurnished,
+    ...(filters.isFurnished !== undefined && {
+      isFurnished: filters.isFurnished,
+    }),
+    ...(filters.floorMin !== undefined &&
+      filters.floorMin >= 0 && {
+        floorMin: filters.floorMin,
+      }),
+    ...(filters.floorMax !== undefined &&
+      filters.floorMax >= 0 && {
+        floorMax: filters.floorMax,
+      }),
+    ...(filters.accommodation && {
+      accommodation: filters.accommodation,
+    }),
+    ...(filters.priceMin !== undefined && {
+      priceMin: filters.priceMin,
+    }),
+    ...(filters.priceMax !== undefined && {
+      priceMax: filters.priceMax,
     }),
   };
 

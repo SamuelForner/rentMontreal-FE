@@ -3,11 +3,16 @@ export enum PropertyType {
   House = 'House',
 }
 
+export enum Accommodation {
+  EntireApartment = 'EntireApartment',
+  FlatShare = 'FlatShare',
+}
+
 export interface PropertyInt {
   _id: string | string[] | undefined;
   title: string;
   type: PropertyType;
-  rooms: number;
+  livingArea: number;
   surfaceArea: number;
   isFurnished: boolean;
   address: {
@@ -16,6 +21,10 @@ export interface PropertyInt {
     postCode: string;
     country: string;
   };
+  floor: number;
+  price: number;
+  isChargesIncluded: boolean;
+  accommodation: Accommodation;
   description: string;
   picture: string;
 }
