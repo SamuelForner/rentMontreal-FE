@@ -35,12 +35,14 @@ export default function usePropertiesRessource(
     ...(filter.filters.isFurnished && {
       isFurnished: filter.filters.isFurnished,
     }),
-    ...(filter.filters.floorMin && {
-      floorMin: filter.filters.floorMin,
-    }),
-    ...(filter.filters.floorMax && {
-      floorMax: filter.filters.floorMax,
-    }),
+    ...(filter.filters.floorMin !== undefined &&
+      filter.filters.floorMin >= 0 && {
+        floorMin: filter.filters.floorMin,
+      }),
+    ...(filter.filters.floorMax !== undefined &&
+      filter.filters.floorMax >= 0 && {
+        floorMax: filter.filters.floorMax,
+      }),
   };
 
   let formattedQueryParams = qs.stringify(queryParams, {

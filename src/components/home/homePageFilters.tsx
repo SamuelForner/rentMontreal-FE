@@ -121,6 +121,10 @@ export default function HomePageFilters({
 
   const handleDeleteFloor = () => {
     setFloor({
+      floorMin: '',
+      floorMax: '',
+    });
+    onFilterChange({
       floorMin: undefined,
       floorMax: undefined,
     });
