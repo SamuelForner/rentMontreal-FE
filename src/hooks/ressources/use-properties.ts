@@ -6,7 +6,7 @@ import { PropertyInt, PropertyType } from '@/interfaces/property';
 
 interface usePropertiesRessourceProps {
   filters: {
-    roomNumber?: number | undefined;
+    livingArea?: number | undefined;
     propertyType?: PropertyType | PropertyType[] | undefined;
     surfaceAreaMin?: number | undefined;
     surfaceAreaMax?: number | undefined;
@@ -22,7 +22,7 @@ export default function usePropertiesRessource(
   const [properties, setProperties] = React.useState<PropertyInt[]>();
 
   const queryParams = {
-    ...(filter.filters.roomNumber && { rooms: `${filter.filters.roomNumber}` }),
+    ...(filter.filters.livingArea && { livingArea: filter.filters.livingArea }),
     ...(filter.filters.propertyType && {
       type: `${filter.filters.propertyType}`,
     }),

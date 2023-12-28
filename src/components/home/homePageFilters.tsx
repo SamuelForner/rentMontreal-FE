@@ -23,7 +23,7 @@ import {
 
 interface ResearchBarProps {
   onFiltersChange: (filters: {
-    roomNumber?: number | undefined;
+    livingArea?: number | undefined;
     propertyType?: PropertyType | PropertyType[] | undefined;
     surfaceAreaMin?: number | undefined;
     surfaceAreaMax?: number | undefined;
@@ -36,7 +36,7 @@ interface ResearchBarProps {
 export default function HomePageFilters({
   onFiltersChange: onFilterChange,
 }: ResearchBarProps) {
-  const [roomNumber, setRoomNumber] = React.useState<
+  const [livingArea, setLivingArea] = React.useState<
     number | string | undefined
   >();
 
@@ -64,9 +64,9 @@ export default function HomePageFilters({
     floorMax: '',
   });
 
-  const handleRoomNumber = (value: number | string | undefined) => {
-    setRoomNumber(value != '' ? Number(value) : '');
-    onFilterChange({ roomNumber: value != '' ? Number(value) : undefined });
+  const handleLivingArea = (value: number | string | undefined) => {
+    setLivingArea(value != '' ? Number(value) : '');
+    onFilterChange({ livingArea: value != '' ? Number(value) : undefined });
   };
 
   const handlePropertyType = (
@@ -166,15 +166,15 @@ export default function HomePageFilters({
         <Stack>
           <Menu closeOnSelect={false} autoSelect={false}>
             <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-              {roomNumber
-                ? `Nombre de chambre : ${roomNumber}`
-                : 'Nombre de chambre'}
+              {livingArea
+                ? `Nombre de pièce : ${livingArea}`
+                : 'Nombre de pièce'}
             </MenuButton>
             <MenuList>
               <NumberInput
                 size='xs'
-                value={roomNumber}
-                onChange={handleRoomNumber}
+                value={livingArea}
+                onChange={handleLivingArea}
                 name='numberInput'
               >
                 <NumberInputField />

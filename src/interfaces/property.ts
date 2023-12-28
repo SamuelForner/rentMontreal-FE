@@ -7,7 +7,7 @@ export interface PropertyInt {
   _id: string | string[] | undefined;
   title: string;
   type: PropertyType;
-  rooms: number;
+  livingArea: number;
   surfaceArea: number;
   isFurnished: boolean;
   address: {

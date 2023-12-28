@@ -9,7 +9,7 @@ import { PropertyType } from '@/interfaces/property';
 
 export default function Home() {
   const [filters, setFilters] = React.useState<{
-    roomNumber?: number | undefined;
+    livingArea?: number | undefined;
     propertyType?: PropertyType | PropertyType[] | undefined;
     surfaceAreaMin?: number | undefined;
     surfaceAreaMax?: number | undefined;
@@ -17,7 +17,7 @@ export default function Home() {
     floorMin?: number | undefined;
     floorMax?: number | undefined;
   }>({
-    roomNumber: undefined,
+    livingArea: undefined,
     propertyType: undefined,
     surfaceAreaMax: undefined,
     surfaceAreaMin: undefined,
@@ -27,7 +27,7 @@ export default function Home() {
   });
 
   const handleFiltersChange = (newFilter: {
-    roomNumber?: number | undefined;
+    livingArea?: number | undefined;
     propertyType?: PropertyType | PropertyType[] | undefined;
     surfaceAreaMin?: number | undefined;
     surfaceAreaMax?: number | undefined;

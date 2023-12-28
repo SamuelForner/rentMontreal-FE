@@ -20,7 +20,7 @@ import {
 
 interface PropertyListProps {
   filters: {
-    roomNumber?: number | undefined;
+    livingArea?: number | undefined;
     propertyType?: PropertyType | PropertyType[] | undefined;
     surfaceAreaMin?: number | undefined;
     surfaceAreaMax?: number | undefined;
@@ -71,7 +71,7 @@ export default function PropertyList(filters: PropertyListProps) {
                 <Stack mt='6'>
                   <Heading size='md'>{property.title}</Heading>
                   <Text>{property.type}</Text>
-                  <Text>{`${property.rooms} pièces`}</Text>
+                  <Text>{`${property.livingArea} pièces`}</Text>
                   <Text>{`Surface : ${property.surfaceArea}`}</Text>
                   <Text>Meublé : {property.isFurnished ? 'Oui' : 'Non'}</Text>
                   <Text>{`${property.address?.street ?? 'Non renseigné'}, ${

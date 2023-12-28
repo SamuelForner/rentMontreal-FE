@@ -24,7 +24,7 @@ export default function Property({ propertyId }: PropertyDescriptionProps) {
           <Image alt='image' src={property?.picture} />
         </Box>
         <VStack>
-          <Text>Nombre de chambre : {property?.rooms}</Text>
+          <Text>Nombre de pièce : {property?.livingArea}</Text>
           <Text>Superficie en m2 : {property?.surfaceArea}</Text>
           <Text>Meublé : {property?.isFurnished ? 'oui' : 'non'}</Text>
           <Text>
