@@ -1,6 +1,7 @@
 import React, { ChangeEvent } from 'react';
 
-import { PropertyType } from '@/interfaces/property';
+import { Accommodation, PropertyType } from '@/interfaces/property';
+import { Filters } from '@/pages/home/home';
 import isEmpty, { isNotEmpty } from '@/utils/helper';
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import {
@@ -22,20 +23,15 @@ import {
 } from '@chakra-ui/react';
 
 interface ResearchBarProps {
-  onFiltersChange: (filters: {
-    livingArea?: number | undefined;
-    propertyType?: PropertyType | PropertyType[] | undefined;
-    surfaceAreaMin?: number | undefined;
-    surfaceAreaMax?: number | undefined;
-    isFurnished?: boolean | undefined;
-    floorMin?: number | undefined;
-    floorMax?: number | undefined;
-  }) => void;
+  onFiltersChange: (filters: Filters) => void;
 }
 
 export default function HomePageFilters({
   onFiltersChange: onFilterChange,
 }: ResearchBarProps) {
+  /*DERNIER FILTRE A RAJOUTER price: number;
+  isChargesIncluded: boolean;*/
+
   const [livingArea, setLivingArea] = React.useState<
     number | string | undefined
   >();
@@ -64,6 +60,10 @@ export default function HomePageFilters({
     floorMax: '',
   });
 
+  const [accommodation, setAccommodation] = React.useState<
+    Accommodation | undefined
+  >();
+
   const handleLivingArea = (value: number | string | undefined) => {
     setLivingArea(value != '' ? Number(value) : '');
     onFilterChange({ livingArea: value != '' ? Number(value) : undefined });
@@ -86,8 +86,12 @@ export default function HomePageFilters({
 
   const handleSurfaceAreaChange = () => {
     onFilterChange({
-      surfaceAreaMin: Number(surfaceArea.surfaceAreaMin),
-      surfaceAreaMax: Number(surfaceArea.surfaceAreaMax),
+      surfaceAreaMin: isNotEmpty(surfaceArea.surfaceAreaMin)
+        ? Number(surfaceArea.surfaceAreaMin)
+        : undefined,
+      surfaceAreaMax: isNotEmpty(surfaceArea.surfaceAreaMax)
+        ? Number(surfaceArea.surfaceAreaMax)
+        : undefined,
     });
   };
 
@@ -100,7 +104,6 @@ export default function HomePageFilters({
   };
 
   const handleIsFurnished = (value: boolean | undefined) => {
-    console.log('value', value);
     setIsFurnished(value);
     onFilterChange({ isFurnished: value });
   };
@@ -115,8 +118,8 @@ export default function HomePageFilters({
 
   const handleFloorChange = () => {
     onFilterChange({
-      floorMin: Number(floor.floorMin),
-      floorMax: Number(floor.floorMax),
+      floorMin: isNotEmpty(floor.floorMin) ? Number(floor.floorMin) : undefined,
+      floorMax: isNotEmpty(floor.floorMax) ? Number(floor.floorMax) : undefined,
     });
   };
 
@@ -131,12 +134,23 @@ export default function HomePageFilters({
     });
   };
 
+  const handleAccommodationChange = (
+    accommodation: Accommodation | undefined
+  ) => {
+    setAccommodation(accommodation);
+    onFilterChange({ accommodation: accommodation });
+  };
+
   return (
     <Stack spacing={4} padding={4}>
       <HStack>
         <Stack>
           <Menu>
-            <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+            <MenuButton
+              bg={propertyType ? 'green.200' : 'gray.100'}
+              as={Button}
+              rightIcon={<ChevronDownIcon />}
+            >
               {propertyType === PropertyType.Apartment
                 ? 'Appartement'
                 : propertyType === PropertyType.House
@@ -149,16 +163,10 @@ export default function HomePageFilters({
               >
                 Appartement
               </MenuItem>
-              <MenuItem
-                value={PropertyType.House}
-                onClick={() => handlePropertyType(PropertyType.House)}
-              >
+              <MenuItem onClick={() => handlePropertyType(PropertyType.House)}>
                 Maison
               </MenuItem>
-              <MenuItem
-                value={PropertyType.House}
-                onClick={() => handlePropertyType(undefined)}
-              >
+              <MenuItem onClick={() => handlePropertyType(undefined)}>
                 Retirer le filtre
               </MenuItem>
             </MenuList>
@@ -166,7 +174,11 @@ export default function HomePageFilters({
         </Stack>
         <Stack>
           <Menu closeOnSelect={false} autoSelect={false}>
-            <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+            <MenuButton
+              bg={livingArea ? 'green.200' : 'gray.100'}
+              as={Button}
+              rightIcon={<ChevronDownIcon />}
+            >
               {livingArea
                 ? `Nombre de pièce : ${livingArea}`
                 : 'Nombre de pièce'}
@@ -189,8 +201,22 @@ export default function HomePageFilters({
         </Stack>
         <Stack>
           <Menu closeOnSelect={false} autoSelect={false}>
-            <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-              Superficie
+            <MenuButton
+              bg={
+                surfaceArea.surfaceAreaMin || surfaceArea.surfaceAreaMax
+                  ? 'green.200'
+                  : 'gray.100'
+              }
+              as={Button}
+              rightIcon={<ChevronDownIcon />}
+            >
+              {isEmpty(surfaceArea.surfaceAreaMin) &&
+                isEmpty(surfaceArea.surfaceAreaMax) &&
+                'Superficie'}{' '}
+              {isNotEmpty(surfaceArea.surfaceAreaMin) &&
+                `Superficie min: ${surfaceArea.surfaceAreaMin}`}{' '}
+              {isNotEmpty(surfaceArea.surfaceAreaMax) &&
+                `Superficie max: ${surfaceArea.surfaceAreaMax}`}{' '}
             </MenuButton>
             <MenuList>
               <Stack>
@@ -224,7 +250,11 @@ export default function HomePageFilters({
         </Stack>
         <Stack>
           <Menu>
-            <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+            <MenuButton
+              bg={isFurnished !== undefined ? 'green.200' : 'gray.100'}
+              as={Button}
+              rightIcon={<ChevronDownIcon />}
+            >
               {isFurnished === undefined && 'meublé/non meublé'}
               {isFurnished && 'Meublé'}
               {isFurnished === false && 'Non meublé'}
@@ -244,7 +274,11 @@ export default function HomePageFilters({
         </Stack>
         <Stack>
           <Menu>
-            <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+            <MenuButton
+              bg={floor.floorMin || floor.floorMax ? 'green.200' : 'gray.100'}
+              as={Button}
+              rightIcon={<ChevronDownIcon />}
+            >
               {isEmpty(floor.floorMin) && isEmpty(floor.floorMax) && 'Etage'}{' '}
               {isNotEmpty(floor.floorMin) && `Etage min: ${floor.floorMin}`}{' '}
               {isNotEmpty(floor.floorMax) && `Etage max: ${floor.floorMax}`}{' '}
@@ -277,6 +311,40 @@ export default function HomePageFilters({
                   </Button>
                 </HStack>
               </Stack>
+            </MenuList>
+          </Menu>
+        </Stack>
+        <Stack>
+          <Menu>
+            <MenuButton
+              bg={accommodation ? 'green.200' : 'gray.100'}
+              as={Button}
+              rightIcon={<ChevronDownIcon />}
+            >
+              {accommodation === Accommodation.EntireApartment
+                ? 'Logement entier'
+                : accommodation === Accommodation.FlatShare
+                ? 'Colocation'
+                : 'Logement entier/colocation'}
+            </MenuButton>
+            <MenuList>
+              <MenuItem
+                onClick={() =>
+                  handleAccommodationChange(Accommodation.EntireApartment)
+                }
+              >
+                Logement entier
+              </MenuItem>
+              <MenuItem
+                onClick={() =>
+                  handleAccommodationChange(Accommodation.FlatShare)
+                }
+              >
+                Colocation
+              </MenuItem>
+              <MenuItem onClick={() => handleAccommodationChange(undefined)}>
+                Retirer le filtre
+              </MenuItem>
             </MenuList>
           </Menu>
         </Stack>

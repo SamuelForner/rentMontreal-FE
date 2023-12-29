@@ -2,7 +2,7 @@
 import NextLink from 'next/link';
 
 import usePropertiesRessource from '@/hooks/ressources/use-properties';
-import { PropertyType } from '@/interfaces/property';
+import { Filters } from '@/pages/home/home';
 import {
   Button,
   Card,
@@ -19,18 +19,10 @@ import {
 } from '@chakra-ui/react';
 
 interface PropertyListProps {
-  filters: {
-    livingArea?: number | undefined;
-    propertyType?: PropertyType | PropertyType[] | undefined;
-    surfaceAreaMin?: number | undefined;
-    surfaceAreaMax?: number | undefined;
-    isFurnished?: boolean | undefined;
-    floorMin?: number | undefined;
-    floorMax?: number | undefined;
-  };
+  filters: Filters;
 }
 
-export default function PropertyList(filters: PropertyListProps) {
+export default function PropertyList({ filters }: PropertyListProps) {
   const { properties } = usePropertiesRessource(filters);
 
   // const router = useRouter();
@@ -77,6 +69,10 @@ export default function PropertyList(filters: PropertyListProps) {
                   <Text>{`${property.address?.street ?? 'Non renseigné'}, ${
                     property.address?.city ?? 'non renseigné'
                   }, ${property.address?.country ?? 'non renseigné'} `}</Text>
+                  <Text>étage : {property.floor}</Text>
+                  <Text>
+                    logement entier ou coloc : {property.accommodation}
+                  </Text>
                 </Stack>
               </CardBody>
               <Divider />

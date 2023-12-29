@@ -5,18 +5,21 @@ import React from 'react';
 import Header from '@/components/global/header';
 import HomePageFilters from '@/components/home/homePageFilters';
 import PropertyList from '@/components/home/propertyList';
-import { PropertyType } from '@/interfaces/property';
+import { Accommodation, PropertyType } from '@/interfaces/property';
+
+export interface Filters {
+  livingArea?: number | undefined;
+  propertyType?: PropertyType | PropertyType[] | undefined;
+  surfaceAreaMin?: number | undefined;
+  surfaceAreaMax?: number | undefined;
+  isFurnished?: boolean | undefined;
+  floorMin?: number | undefined;
+  floorMax?: number | undefined;
+  accommodation?: Accommodation | undefined;
+}
 
 export default function Home() {
-  const [filters, setFilters] = React.useState<{
-    livingArea?: number | undefined;
-    propertyType?: PropertyType | PropertyType[] | undefined;
-    surfaceAreaMin?: number | undefined;
-    surfaceAreaMax?: number | undefined;
-    isFurnished?: boolean | undefined;
-    floorMin?: number | undefined;
-    floorMax?: number | undefined;
-  }>({
+  const [filters, setFilters] = React.useState<Filters>({
     livingArea: undefined,
     propertyType: undefined,
     surfaceAreaMax: undefined,
@@ -24,17 +27,10 @@ export default function Home() {
     isFurnished: undefined,
     floorMin: undefined,
     floorMax: undefined,
+    accommodation: undefined,
   });
 
-  const handleFiltersChange = (newFilter: {
-    livingArea?: number | undefined;
-    propertyType?: PropertyType | PropertyType[] | undefined;
-    surfaceAreaMin?: number | undefined;
-    surfaceAreaMax?: number | undefined;
-    isFurnished?: boolean | undefined;
-    floorMin?: number | undefined;
-    floorMax?: number | undefined;
-  }) => {
+  const handleFiltersChange = (newFilter: Filters) => {
     setFilters((prevFilter) => ({ ...prevFilter, ...newFilter }));
   };
 

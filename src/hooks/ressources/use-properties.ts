@@ -2,47 +2,36 @@ import qs from 'qs';
 import querystring from 'querystring';
 import React from 'react';
 
-import { PropertyInt, PropertyType } from '@/interfaces/property';
+import { PropertyInt } from '@/interfaces/property';
+import { Filters } from '@/pages/home/home';
 
-interface usePropertiesRessourceProps {
-  filters: {
-    livingArea?: number | undefined;
-    propertyType?: PropertyType | PropertyType[] | undefined;
-    surfaceAreaMin?: number | undefined;
-    surfaceAreaMax?: number | undefined;
-    isFurnished?: boolean | undefined;
-    floorMin?: number | undefined;
-    floorMax?: number | undefined;
-  };
-}
-
-export default function usePropertiesRessource(
-  filter: usePropertiesRessourceProps
-) {
+export default function usePropertiesRessource(filters: Filters) {
   const [properties, setProperties] = React.useState<PropertyInt[]>();
-
   const queryParams = {
-    ...(filter.filters.livingArea && { livingArea: filter.filters.livingArea }),
-    ...(filter.filters.propertyType && {
-      type: `${filter.filters.propertyType}`,
+    ...(filters.livingArea && { livingArea: filters.livingArea }),
+    ...(filters.propertyType && {
+      type: filters.propertyType,
     }),
-    ...(filter.filters.surfaceAreaMin && {
-      surfaceAreaMin: filter.filters.surfaceAreaMin,
+    ...(filters.surfaceAreaMin && {
+      surfaceAreaMin: filters.surfaceAreaMin,
     }),
-    ...(filter.filters.surfaceAreaMax && {
-      surfaceAreaMax: filter.filters.surfaceAreaMax,
+    ...(filters.surfaceAreaMax && {
+      surfaceAreaMax: filters.surfaceAreaMax,
     }),
-    ...(filter.filters.isFurnished !== undefined && {
-      isFurnished: filter.filters.isFurnished,
+    ...(filters.isFurnished !== undefined && {
+      isFurnished: filters.isFurnished,
     }),
-    ...(filter.filters.floorMin !== undefined &&
-      filter.filters.floorMin >= 0 && {
-        floorMin: filter.filters.floorMin,
+    ...(filters.floorMin !== undefined &&
+      filters.floorMin >= 0 && {
+        floorMin: filters.floorMin,
       }),
-    ...(filter.filters.floorMax !== undefined &&
-      filter.filters.floorMax >= 0 && {
-        floorMax: filter.filters.floorMax,
+    ...(filters.floorMax !== undefined &&
+      filters.floorMax >= 0 && {
+        floorMax: filters.floorMax,
       }),
+    ...(filters.accommodation && {
+      accommodation: filters.accommodation,
+    }),
   };
 
   let formattedQueryParams = qs.stringify(queryParams, {
