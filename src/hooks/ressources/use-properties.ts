@@ -32,7 +32,7 @@ export default function usePropertiesRessource(
     ...(filter.filters.surfaceAreaMax && {
       surfaceAreaMax: filter.filters.surfaceAreaMax,
     }),
-    ...(filter.filters.isFurnished && {
+    ...(filter.filters.isFurnished !== undefined && {
       isFurnished: filter.filters.isFurnished,
     }),
     ...(filter.filters.floorMin !== undefined &&

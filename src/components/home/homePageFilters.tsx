@@ -100,6 +100,7 @@ export default function HomePageFilters({
   };
 
   const handleIsFurnished = (value: boolean | undefined) => {
+    console.log('value', value);
     setIsFurnished(value);
     onFilterChange({ isFurnished: value });
   };
