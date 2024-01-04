@@ -17,6 +17,10 @@ import {
   NumberInput,
   NumberInputField,
   NumberInputStepper,
+  RangeSlider,
+  RangeSliderFilledTrack,
+  RangeSliderThumb,
+  RangeSliderTrack,
   Stack,
   Text,
   VStack,
@@ -63,6 +67,8 @@ export default function HomePageFilters({
   const [accommodation, setAccommodation] = React.useState<
     Accommodation | undefined
   >();
+
+  const [price, setPrice] = React.useState<number[]>([500, 1200]);
 
   const handleLivingArea = (value: number | string | undefined) => {
     setLivingArea(value != '' ? Number(value) : '');
@@ -139,6 +145,16 @@ export default function HomePageFilters({
   ) => {
     setAccommodation(accommodation);
     onFilterChange({ accommodation: accommodation });
+  };
+
+  const handlePriceChange = (value: string | number[], i?: any) => {
+    if (typeof value === 'string') {
+      let newPrice = [...price];
+      newPrice[i] = Number(value);
+      setPrice(newPrice);
+    } else {
+      setPrice(value);
+    }
   };
 
   return (
@@ -345,6 +361,72 @@ export default function HomePageFilters({
               <MenuItem onClick={() => handleAccommodationChange(undefined)}>
                 Retirer le filtre
               </MenuItem>
+            </MenuList>
+          </Menu>
+        </Stack>
+        <Stack>
+          <Menu>
+            <MenuButton
+              bg='gray.100'
+              as={Button}
+              rightIcon={<ChevronDownIcon />}
+            >
+              Prix
+            </MenuButton>
+            <MenuList>
+              <VStack spacing={2}>
+                <HStack>
+                  <Stack>
+                    <Text>Prix min : </Text>
+                    <NumberInput
+                      size='xs'
+                      name='minPrice'
+                      placeholder='prix min'
+                      value={price[0]}
+                      onChange={(value, i) => handlePriceChange(value, (i = 0))}
+                    >
+                      <NumberInputField />
+                      <NumberInputStepper>
+                        <NumberIncrementStepper />
+                        <NumberDecrementStepper />
+                      </NumberInputStepper>
+                    </NumberInput>
+                  </Stack>
+                  <Stack>
+                    <Text>Prix max : </Text>
+                    <NumberInput
+                      size='xs'
+                      name='maxPrice'
+                      placeholder='prix max'
+                      value={price[1]}
+                      onChange={(value, i) => handlePriceChange(value, (i = 1))}
+                    >
+                      <NumberInputField />
+                      <NumberInputStepper>
+                        <NumberIncrementStepper />
+                        <NumberDecrementStepper />
+                      </NumberInputStepper>
+                    </NumberInput>
+                  </Stack>
+                </HStack>
+                <RangeSlider
+                  onChange={handlePriceChange}
+                  defaultValue={price}
+                  value={price}
+                  max={2000}
+                  focusThumbOnChange={false}
+                >
+                  <RangeSliderTrack>
+                    <RangeSliderFilledTrack />
+                  </RangeSliderTrack>
+                  <RangeSliderThumb boxSize={6} index={0}>
+                    {price[0]}
+                  </RangeSliderThumb>
+                  <RangeSliderThumb boxSize={6} index={1}>
+                    {price[1]}
+                  </RangeSliderThumb>
+                </RangeSlider>
+              </VStack>
             </MenuList>
           </Menu>
         </Stack>
