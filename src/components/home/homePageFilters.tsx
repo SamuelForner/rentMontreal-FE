@@ -33,7 +33,7 @@ interface ResearchBarProps {
 export default function HomePageFilters({
   onFiltersChange: onFilterChange,
 }: ResearchBarProps) {
-  /*DERNIER FILTRE A RAJOUTER price: number;
+  /*DERNIER FILTRE A RAJOUTER 
   isChargesIncluded: boolean;*/
 
   const [livingArea, setLivingArea] = React.useState<
@@ -68,7 +68,9 @@ export default function HomePageFilters({
     Accommodation | undefined
   >();
 
-  const [price, setPrice] = React.useState<number[]>([500, 1200]);
+  const [price, setPrice] = React.useState<(number | string | undefined)[]>([
+    500, 1200,
+  ]);
 
   const handleLivingArea = (value: number | string | undefined) => {
     setLivingArea(value != '' ? Number(value) : '');
@@ -147,14 +149,35 @@ export default function HomePageFilters({
     onFilterChange({ accommodation: accommodation });
   };
 
-  const handlePriceChange = (value: string | number[], i?: any) => {
+  const onPriceChange = (value: string | number[], i?: any) => {
     if (typeof value === 'string') {
       let newPrice = [...price];
-      newPrice[i] = Number(value);
-      setPrice(newPrice);
+      if (isNotEmpty(value)) {
+        newPrice[i] = value;
+        setPrice(newPrice);
+      }
+      if (isEmpty(value)) {
+        newPrice[i] = '';
+        setPrice(newPrice);
+      }
     } else {
       setPrice(value);
     }
+  };
+
+  const handlePriceChange = () => {
+    onFilterChange({
+      priceMin: isNotEmpty(price[0]) ? Number(price[0]) : undefined,
+      priceMax: isNotEmpty(price[1]) ? Number(price[1]) : undefined,
+    });
+  };
+
+  const handleDeletePrice = () => {
+    setPrice(['', '']);
+    onFilterChange({
+      priceMin: undefined,
+      priceMax: undefined,
+    });
   };
 
   return (
@@ -367,7 +390,7 @@ export default function HomePageFilters({
         <Stack>
           <Menu>
             <MenuButton
-              bg='gray.100'
+              bg={price[0] || price[1] ? 'green.200' : 'gray.100'}
               as={Button}
               rightIcon={<ChevronDownIcon />}
             >
@@ -383,7 +406,7 @@ export default function HomePageFilters({
                       name='minPrice'
                       placeholder='prix min'
                       value={price[0]}
-                      onChange={(value, i) => handlePriceChange(value, (i = 0))}
+                      onChange={(value, i) => onPriceChange(value, (i = 0))}
                     >
                       <NumberInputField />
                       <NumberInputStepper>
@@ -399,7 +422,7 @@ export default function HomePageFilters({
                       name='maxPrice'
                       placeholder='prix max'
                       value={price[1]}
-                      onChange={(value, i) => handlePriceChange(value, (i = 1))}
+                      onChange={(value, i) => onPriceChange(value, (i = 1))}
                     >
                       <NumberInputField />
                       <NumberInputStepper>
@@ -410,9 +433,9 @@ export default function HomePageFilters({
                   </Stack>
                 </HStack>
                 <RangeSlider
-                  onChange={handlePriceChange}
-                  defaultValue={price}
-                  value={price}
+                  onChange={onPriceChange}
+                  defaultValue={price as number[]}
+                  value={price as number[]}
                   max={2000}
                   focusThumbOnChange={false}
                 >
@@ -426,6 +449,14 @@ export default function HomePageFilters({
                     {price[1]}
                   </RangeSliderThumb>
                 </RangeSlider>
+                <HStack spacing={2}>
+                  <Button colorScheme='blue' onClick={handlePriceChange}>
+                    Valider
+                  </Button>
+                  <Button colorScheme='pink' onClick={handleDeletePrice}>
+                    Supprimer le filtre
+                  </Button>
+                </HStack>
               </VStack>
             </MenuList>
           </Menu>

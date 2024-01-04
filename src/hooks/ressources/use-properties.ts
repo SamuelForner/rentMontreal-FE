@@ -32,6 +32,12 @@ export default function usePropertiesRessource(filters: Filters) {
     ...(filters.accommodation && {
       accommodation: filters.accommodation,
     }),
+    ...(filters.priceMin !== undefined && {
+      priceMin: filters.priceMin,
+    }),
+    ...(filters.priceMax !== undefined && {
+      priceMax: filters.priceMax,
+    }),
   };
 
   let formattedQueryParams = qs.stringify(queryParams, {

@@ -16,6 +16,8 @@ export interface Filters {
   floorMin?: number | undefined;
   floorMax?: number | undefined;
   accommodation?: Accommodation | undefined;
+  priceMin?: number | undefined;
+  priceMax?: number | undefined;
 }
 
 export default function Home() {
@@ -28,6 +30,8 @@ export default function Home() {
     floorMin: undefined,
     floorMax: undefined,
     accommodation: undefined,
+    priceMin: undefined,
+    priceMax: undefined,
   });
 
   const handleFiltersChange = (newFilter: Filters) => {

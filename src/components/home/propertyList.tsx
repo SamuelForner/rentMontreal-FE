@@ -61,10 +61,10 @@ export default function PropertyList({ filters }: PropertyListProps) {
                   borderRadius='lg'
                 />
                 <Stack mt='6'>
-                  <Heading size='md'>{property.title}</Heading>
-                  <Text>{property.type}</Text>
+                  <Heading size='md'>Titre : {property.title}</Heading>
+                  <Text>Type : {property.type}</Text>
                   <Text>{`${property.livingArea} pièces`}</Text>
-                  <Text>{`Surface : ${property.surfaceArea}`}</Text>
+                  <Text>{`Surface : ${property.surfaceArea}`} m2</Text>
                   <Text>Meublé : {property.isFurnished ? 'Oui' : 'Non'}</Text>
                   <Text>{`${property.address?.street ?? 'Non renseigné'}, ${
                     property.address?.city ?? 'non renseigné'
@@ -73,6 +73,7 @@ export default function PropertyList({ filters }: PropertyListProps) {
                   <Text>
                     logement entier ou coloc : {property.accommodation}
                   </Text>
+                  <Text>prix: {property.price}💲CAD/mois</Text>
                 </Stack>
               </CardBody>
               <Divider />
