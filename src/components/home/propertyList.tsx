@@ -2,7 +2,7 @@
 import NextLink from 'next/link';
 
 import usePropertiesRessource from '@/hooks/ressources/use-properties';
-import { PropertyType } from '@/interfaces/property';
+import { Filters } from '@/pages/home/home';
 import {
   Button,
   Card,
@@ -19,16 +19,10 @@ import {
 } from '@chakra-ui/react';
 
 interface PropertyListProps {
-  filters: {
-    roomNumber?: number | undefined;
-    propertyType?: PropertyType | PropertyType[] | undefined;
-    surfaceAreaMin?: number | undefined;
-    surfaceAreaMax?: number | undefined;
-    isFurnished?: boolean | undefined;
-  };
+  filters: Filters;
 }
 
-export default function PropertyList(filters: PropertyListProps) {
+export default function PropertyList({ filters }: PropertyListProps) {
   const { properties } = usePropertiesRessource(filters);
 
   // const router = useRouter();
@@ -67,14 +61,19 @@ export default function PropertyList(filters: PropertyListProps) {
                   borderRadius='lg'
                 />
                 <Stack mt='6'>
-                  <Heading size='md'>{property.title}</Heading>
-                  <Text>{property.type}</Text>
-                  <Text>{`${property.rooms} pièces`}</Text>
-                  <Text>{`Surface : ${property.surfaceArea}`}</Text>
+                  <Heading size='md'>Titre : {property.title}</Heading>
+                  <Text>Type : {property.type}</Text>
+                  <Text>{`${property.livingArea} pièces`}</Text>
+                  <Text>{`Surface : ${property.surfaceArea}`} m2</Text>
                   <Text>Meublé : {property.isFurnished ? 'Oui' : 'Non'}</Text>
                   <Text>{`${property.address?.street ?? 'Non renseigné'}, ${
                     property.address?.city ?? 'non renseigné'
                   }, ${property.address?.country ?? 'non renseigné'} `}</Text>
+                  <Text>étage : {property.floor}</Text>
+                  <Text>
+                    logement entier ou coloc : {property.accommodation}
+                  </Text>
+                  <Text>prix: {property.price}💲CAD/mois</Text>
                 </Stack>
               </CardBody>
               <Divider />
