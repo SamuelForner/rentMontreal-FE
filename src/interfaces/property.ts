@@ -28,3 +28,16 @@ export interface PropertyInt {
   description: string;
   picture: string;
 }
+
+export interface Filters {
+  livingArea?: number | undefined;
+  propertyType?: PropertyType | PropertyType[] | undefined;
+  surfaceAreaMin?: number | undefined;
+  surfaceAreaMax?: number | undefined;
+  isFurnished?: boolean | undefined;
+  floorMin?: number | undefined;
+  floorMax?: number | undefined;
+  accommodation?: Accommodation | undefined;
+  priceMin?: number | undefined;
+  priceMax?: number | undefined;
+}

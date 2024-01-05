@@ -5,20 +5,7 @@ import React from 'react';
 import Header from '@/components/global/header';
 import HomePageFilters from '@/components/home/homePageFilters';
 import PropertyList from '@/components/home/propertyList';
-import { Accommodation, PropertyType } from '@/interfaces/property';
-
-export interface Filters {
-  livingArea?: number | undefined;
-  propertyType?: PropertyType | PropertyType[] | undefined;
-  surfaceAreaMin?: number | undefined;
-  surfaceAreaMax?: number | undefined;
-  isFurnished?: boolean | undefined;
-  floorMin?: number | undefined;
-  floorMax?: number | undefined;
-  accommodation?: Accommodation | undefined;
-  priceMin?: number | undefined;
-  priceMax?: number | undefined;
-}
+import { Filters } from '@/interfaces/property';
 
 export default function Home() {
   const [filters, setFilters] = React.useState<Filters>({
@@ -39,10 +26,10 @@ export default function Home() {
   };
 
   return (
-    <>
+    <div>
       <Header />
       <HomePageFilters onFiltersChange={handleFiltersChange} />
       <PropertyList filters={filters} />
-    </>
+    </div>
   );
 }

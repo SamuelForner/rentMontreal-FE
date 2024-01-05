@@ -7,6 +7,11 @@ import { Filters } from '@/pages/home/home';
 
 export default function usePropertiesRessource(filters: Filters) {
   const [properties, setProperties] = React.useState<PropertyInt[]>();
+
+  const [loading, setLoading] = React.useState(true);
+
+  const [error, setError] = React.useState(null);
+
   const queryParams = {
     ...(filters.livingArea && { livingArea: filters.livingArea }),
     ...(filters.propertyType && {
@@ -45,18 +50,22 @@ export default function usePropertiesRessource(filters: Filters) {
   });
 
   React.useEffect(() => {
-    const dataFetch = async () => {
-      const data = await (
-        await fetch(
-          `http://localhost:3001/properties/filter${formattedQueryParams}`
-        )
-      ).json();
-      setProperties(data);
-    };
-    dataFetch();
+    fetch(`http://localhost:3001/properties/filter${formattedQueryParams}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setProperties(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        setError(error);
+        setLoading(false);
+      });
   }, [formattedQueryParams]);
 
   return {
     properties,
+    loading,
+    error,
   };
 }
