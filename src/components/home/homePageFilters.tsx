@@ -33,6 +33,9 @@ interface ResearchBarProps {
 export default function HomePageFilters({
   onFiltersChange: onFilterChange,
 }: ResearchBarProps) {
+  /*DERNIER FILTRE A RAJOUTER 
+  isChargesIncluded: boolean;*/
+
   const [livingArea, setLivingArea] = React.useState<
     number | string | undefined
   >();
