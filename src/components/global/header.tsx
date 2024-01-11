@@ -1,12 +1,14 @@
-import { usePathname, useRouter } from 'next/navigation';
-import { FaArrowLeft } from 'react-icons/fa';
+import Link from 'next/link';
 
+import { isNotEmpty } from '@/utils/helper';
+import { ArrowBackIcon } from '@chakra-ui/icons';
 import { Button, Heading, HStack, Stack, Text } from '@chakra-ui/react';
 
-export default function Header() {
-  const pathName = usePathname();
-  const router = useRouter();
+interface HeaderProps {
+  path?: string;
+}
 
+export default function Header({ path }: HeaderProps) {
   return (
     <HStack
       background='linear-gradient(90deg, #36D1DC 0%, #5B86E5 100%)'
@@ -18,14 +20,13 @@ export default function Header() {
       position='relative'
     >
       <Stack spacing={2} direction='row' align='center'>
-        {pathName !== '/' && (
-          <Button
-            colorScheme='whiteAlpha'
-            leftIcon={<FaArrowLeft />}
-            onClick={() => router.back()}
-          >
-            Retour
-          </Button>
+        {path && isNotEmpty(path) && (
+          <Link href='/' color='whiteAlpha'>
+            <Button
+              colorScheme='whiteAlpha'
+              leftIcon={<ArrowBackIcon />}
+            ></Button>
+          </Link>
         )}
       </Stack>
       <Stack>

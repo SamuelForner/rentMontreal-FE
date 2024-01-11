@@ -1,7 +1,6 @@
 import React, { ChangeEvent } from 'react';
 
-import { Accommodation, PropertyType } from '@/interfaces/property';
-import { Filters } from '@/pages/home/home';
+import { Accommodation, Filters, PropertyType } from '@/interfaces/property';
 import isEmpty, { isNotEmpty } from '@/utils/helper';
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import {
