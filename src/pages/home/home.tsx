@@ -5,9 +5,13 @@ import React from 'react';
 import Header from '@/components/global/header';
 import HomePageFilters from '@/components/home/homePageFilters';
 import PropertyList from '@/components/home/propertyList';
+import OwnerContext from '@/context/OwnerContext';
 import { Filters } from '@/interfaces/property';
 
 export default function Home() {
+  const { ownerToken } = React.useContext(OwnerContext);
+  const isConnected =
+    ownerToken !== undefined || ownerToken !== null ? true : false;
   const [filters, setFilters] = React.useState<Filters>({
     livingArea: undefined,
     propertyType: undefined,
@@ -27,7 +31,7 @@ export default function Home() {
 
   return (
     <div>
-      <Header />
+      <Header isConnected={isConnected} />
       <HomePageFilters onFiltersChange={handleFiltersChange} />
       <PropertyList filters={filters} />
     </div>

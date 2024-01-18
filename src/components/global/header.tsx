@@ -1,14 +1,20 @@
 import Link from 'next/link';
 
+import useOwnerInfo from '@/hooks/ressources/use-owner';
 import { isNotEmpty } from '@/utils/helper';
 import { ArrowBackIcon } from '@chakra-ui/icons';
-import { Button, Heading, HStack, Stack, Text } from '@chakra-ui/react';
+import { Avatar, Button, Heading, HStack, Stack, Text } from '@chakra-ui/react';
 
 interface HeaderProps {
-  path?: string;
+  path?: {
+    resolvedUrl: string;
+  };
+  isConnected: boolean;
 }
 
-export default function Header({ path }: HeaderProps) {
+export default function Header({ path, isConnected }: HeaderProps) {
+  const { ownerInfo } = useOwnerInfo();
+
   return (
     <HStack
       background='linear-gradient(90deg, #36D1DC 0%, #5B86E5 100%)'
@@ -49,7 +55,26 @@ export default function Header({ path }: HeaderProps) {
           Explorez une variété de propriétés à Montréal
         </Text>
       </Stack>
-      <Stack></Stack>
+      <Stack>
+        {path?.resolvedUrl !== '/auth/owner/auth/' &&
+          (isConnected && ownerInfo ? (
+            <Stack direction='row' align='center'>
+              <Text fontSize='sm' mr='2'>
+                Bonjour {`${ownerInfo.firstName} ${ownerInfo.lastName}`} !
+              </Text>
+              <Link color='whiteAlpha' href='/auth/owner/auth'>
+                <Avatar
+                  name={`${ownerInfo.firstName} ${ownerInfo.lastName}`}
+                  size='sm'
+                />
+              </Link>
+            </Stack>
+          ) : (
+            <Link color='teal.500' href='/auth/owner/auth'>
+              Se connecter / S inscrire
+            </Link>
+          ))}
+      </Stack>
     </HStack>
   );
 }
