@@ -1,9 +1,7 @@
 import qs from 'qs';
-import querystring from 'querystring';
 import React from 'react';
 
-import { PropertyInt } from '@/interfaces/property';
-import { Filters } from '@/pages/home/home';
+import { Filters, PropertyInt } from '@/interfaces/property';
 
 export default function usePropertiesRessource(filters: Filters) {
   const [properties, setProperties] = React.useState<PropertyInt[]>();
@@ -50,7 +48,9 @@ export default function usePropertiesRessource(filters: Filters) {
   });
 
   React.useEffect(() => {
-    fetch(`http://localhost:3001/properties/filter${formattedQueryParams}`)
+    fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/properties/filter${formattedQueryParams}`
+    )
       .then((response) => response.json())
       .then((data) => {
         setProperties(data);
