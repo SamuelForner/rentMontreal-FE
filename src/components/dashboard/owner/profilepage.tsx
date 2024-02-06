@@ -22,6 +22,7 @@ export default function ProfilePage() {
   const handleLogout = () => {
     setOwnerToken('');
     localStorage.removeItem('auth-token');
+    localStorage.removeItem('owner-id');
     router.push('/auth/owner/auth');
   };
   if (isLoading) {

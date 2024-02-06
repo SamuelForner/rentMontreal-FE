@@ -51,8 +51,9 @@ export default function SignIn() {
       }
       setOwnerToken(signInRes.token);
       localStorage.setItem('auth-token', signInRes.token);
+      localStorage.setItem('owner-id', signInRes.owner.id);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 

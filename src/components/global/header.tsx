@@ -1,4 +1,6 @@
+/* eslint-disable react/no-unescaped-entities */
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import useOwnerInfo from '@/hooks/ressources/use-owner';
 import { isNotEmpty } from '@/utils/helper';
@@ -14,6 +16,7 @@ interface HeaderProps {
 
 export default function Header({ path, isConnected }: HeaderProps) {
   const { ownerInfo } = useOwnerInfo();
+  const router = useRouter();
 
   return (
     <HStack
@@ -26,13 +29,14 @@ export default function Header({ path, isConnected }: HeaderProps) {
       position='relative'
     >
       <Stack spacing={2} direction='row' align='center'>
-        {path && isNotEmpty(path) && (
-          <Link href='/' color='whiteAlpha'>
-            <Button
-              colorScheme='whiteAlpha'
-              leftIcon={<ArrowBackIcon />}
-            ></Button>
-          </Link>
+        {path && isNotEmpty(path) && !isConnected && (
+          <Button
+            colorScheme='whiteAlpha'
+            leftIcon={<ArrowBackIcon />}
+            onClick={isConnected ? () => router.push('/') : () => router.back()}
+          >
+            <Text>Page d'accueil</Text>
+          </Button>
         )}
       </Stack>
       <Stack>
@@ -70,7 +74,7 @@ export default function Header({ path, isConnected }: HeaderProps) {
               </Link>
             </Stack>
           ) : (
-            <Link color='teal.500' href='/auth/owner/auth'>
+            <Link color='teal.500' href='/auth'>
               Se connecter / S inscrire
             </Link>
           ))}

@@ -8,6 +8,12 @@ export enum Accommodation {
   FlatShare = 'FlatShare',
 }
 
+export enum ActiveComponent {
+  showOwnerProperty = 'showOwnerProperty',
+  addOwnerProperty = 'addOwnerProperty',
+  showOwnerSetting = 'showOwnerSetting',
+}
+
 export interface PropertyInt {
   _id: string | string[] | undefined;
   title: string;
