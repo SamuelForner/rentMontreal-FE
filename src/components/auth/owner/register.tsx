@@ -61,7 +61,7 @@ export default function Register() {
       setOwnerToken(signInRes.token);
       localStorage.setItem('auth-token', signInRes.token);
     } catch (e) {
-      console.log('onsubmit error', e);
+      console.error('onsubmit error', e);
     }
   };
 

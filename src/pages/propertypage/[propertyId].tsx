@@ -17,7 +17,8 @@ export default function PropertyPage({
 }: PropertyPageProps) {
   const { ownerToken } = React.useContext(OwnerContext);
   const isConnected =
-    ownerToken !== undefined || ownerToken !== null ? true : false;
+    ownerToken !== undefined && ownerToken !== null ? true : false;
+
   return (
     <div>
       <Header path={resolvedUrl} isConnected={isConnected} />
