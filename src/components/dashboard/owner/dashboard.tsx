@@ -3,6 +3,7 @@ import React from 'react';
 
 import Sidebar from '@/components/global/sidebar';
 import OwnerContext from '@/context/OwnerContext';
+import { getOwnerIdFromLocalStorage } from '@/utils/localstorage';
 import {
   Button,
   HStack,
@@ -18,10 +19,13 @@ import {
 } from '@chakra-ui/react';
 
 import AddProperty from './property/AddProperty';
+import OwnerProperties from './property/OwnerProperties';
 
 export default function Dashboard() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const router = useRouter();
+  const ownerId = getOwnerIdFromLocalStorage();
+
   const { setOwnerToken } = React.useContext(OwnerContext);
 
   const [activeComponents, setActiveComponents] = React.useState({
@@ -68,7 +72,9 @@ export default function Dashboard() {
         </ModalContent>
       </Modal>
       {activeComponents.addOwnerProperty && <AddProperty />}
-      {activeComponents.showOwnerProperty && <Text>Voir mes propriétés</Text>}
+      {activeComponents.showOwnerProperty && (
+        <OwnerProperties ownerId={ownerId} />
+      )}
       {activeComponents.showOwnerSetting && <Text>Voir mes paramètres</Text>}
     </HStack>
   );
